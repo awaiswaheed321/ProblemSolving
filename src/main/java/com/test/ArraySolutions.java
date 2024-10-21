@@ -6,12 +6,18 @@ import java.util.List;
 
 public class ArraySolutions {
     public static void main(String[] args) {
-        testMissingNumber();
+//        testMissingNumber();
+//        System.out.println(getSingle(new int[]{8, 8, 7, 7, 6, 6, 1}));
+        int[] arr = new int[]{3, 6, 12, 1, 5, 8};
+        reArrange(arr, 6);
+        System.out.println(Arrays.toString(arr));
     }
+
 
     public static List<Integer> duplicates(int[] arr) {
         List<Integer> list = new ArrayList<Integer>();
-        for (int i = 0; i < arr.length; i++) {}
+        for (int i = 0; i < arr.length; i++) {
+        }
         return list;
     }
 
@@ -23,13 +29,13 @@ public class ArraySolutions {
     private static int missingNumber(int n, int arr[]) {
         Arrays.sort(arr);
         int missing = -1;
-        for(int i = 0; i <= n; i++) {
-            if(i == n - 1) {
+        for (int i = 0; i <= n; i++) {
+            if (i == n - 1) {
                 missing = i;
                 break;
             }
-            if(arr[i] != i+1) {
-                missing = i+1;
+            if (arr[i] != i + 1) {
+                missing = i + 1;
                 break;
             }
         }
@@ -42,8 +48,8 @@ public class ArraySolutions {
     }
 
     private static int search(int arr[], int x) {
-        for(int i = 0; i < arr.length; i++) {
-            if(arr[i] == x) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == x) {
                 return i;
             }
         }
@@ -79,5 +85,30 @@ public class ArraySolutions {
             }
         }
         return index;
+    }
+
+    static int getSingle(int arr[]) {
+        int x = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            x ^= arr[i];
+        }
+        return x;
+    }
+
+    static void reArrange(int[] arr, int N) {
+        int eI = 0, oI = 1;
+        while (eI < N && oI < N) {
+            if (arr[eI] % 2 == 0) {
+                eI+=2;
+            } else if (arr[oI] % 2 == 1) {
+                oI+=2;
+            } else {
+                int temp = arr[eI];
+                arr[eI] = arr[oI];
+                arr[oI] = temp;
+                eI+=2;
+                oI+=2;
+            }
+        }
     }
 }
