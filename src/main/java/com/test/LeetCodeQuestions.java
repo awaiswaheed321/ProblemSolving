@@ -1,8 +1,6 @@
 package com.test;
 
-import java.math.BigInteger;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class LeetCodeQuestions {
     public static void main(String[] args) {
@@ -15,10 +13,76 @@ public class LeetCodeQuestions {
 //        System.out.println(getSecondLargest(new int[] {10, 5,10}));
 //        System.out.println(getSecondLargest(new int[] {10,10}));
 
-        System.out.println(equilibriumPoint(new long[]{1, 0}));
-        System.out.println(equilibriumPoint(new long[]{1, 3, 5, 2, 2}));
-        System.out.println(equilibriumPoint(new long[]{1, 2,3}));
-        System.out.println();
+//        System.out.println(equilibriumPoint(new long[]{1, 0}));
+//        System.out.println(equilibriumPoint(new long[]{1, 3, 5, 2, 2}));
+//        System.out.println(equilibriumPoint(new long[]{1, 2, 3}));
+//        System.out.println();
+
+//        System.out.println(Arrays.toString(getMaxXor(new int[]{0,1,2,2,5,7}, 3)));
+        System.out.println(rotateString("abcde", "bcdea"));
+    }
+
+    public static boolean rotateString(String s, String goal) {
+        if(s.length() != goal.length()) return false;
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(0);
+            s = s.substring(1) + c;
+            if(s.equals(goal)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isCircularSentence(String sentence) {
+        String[] words = sentence.split(" ");
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            if (i == words.length - 1) {
+                if (word.charAt(word.length() - 1) != words[0].charAt(0)) return false;
+            } else {
+                if (word.charAt(word.length() - 1) != words[i + 1].charAt(0)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
+    public static String makeFancyString(String s) {
+        String res = "";
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (i < s.length() - 2) {
+                if (!(c == s.charAt(i + 1) && c == s.charAt(i + 2))) {
+                    res += c;
+                }
+            } else {
+                res += c;
+            }
+        }
+        return res;
+    }
+
+    static int[] getMaxXor(int[] input, int maxBit) {
+        double maxK = Math.pow(2, maxBit);
+        int[] res = new int[input.length];
+        for (int i = input.length - 1; i >= 0; i--) {
+            int xor = input[0];
+            for (int j = 1; j <= i; j++) {
+                xor ^= input[j];
+            }
+            int max = Integer.MIN_VALUE;
+            int maxIndex = 0;
+            for (int k = 0; k < maxK; k++) {
+                int maxXor = xor ^ k;
+                if (maxXor > max) {
+                    max = maxXor;
+                    maxIndex = k;
+                }
+            }
+            res[input.length - i - 1] = maxIndex;
+        }
+        return res;
     }
 
 
