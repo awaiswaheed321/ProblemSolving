@@ -19,15 +19,147 @@ public class LeetCodeQuestions {
 //        System.out.println();
 
 //        System.out.println(Arrays.toString(getMaxXor(new int[]{0,1,2,2,5,7}, 3)));
-        System.out.println(rotateString("abcde", "bcdea"));
+//        System.out.println(rotateString("abcde", "bcdea"));
+//        System.out.println(checkIfExist(new int[]{-2, 0, 10, -19, 4, 6, -8}));
+//        int[] arr = new int[] {-1,-100,3,99};
+//        rotate2(arr, 2);
+//        System.out.println(Arrays.toString(arr));
+//        System.out.println(calculate("-(2 + 3)"));
+//        System.out.println(addSpaces("icodeinpython", new int[]{1, 5, 7, 9}));
+//        System.out.println(addSpaces("LeetcodeHelpsMeLearn", new int[]{8,13,15}));
+        System.out.println(maxWidthRamp(new int[]{9,8,1,0,1,9,4,0,4,1}));
+    }
+
+    public static int maxWidthRamp(int[] nums) {
+        int len = nums.length;
+        int maxRamp = 0;
+
+        Stack<Integer> stack = new Stack<>();
+        for(int i =0; i<len; i++) {
+            if(stack.isEmpty() || nums[stack.peek()] > nums[i]) {
+                stack.push(i);
+            }
+        }
+
+        for(int j=len-1; j>=0; j--) {
+            while(!stack.isEmpty() && nums[stack.peek()] <= nums[j]) {
+                int  i = stack.pop();
+                maxRamp = Math.max(maxRamp, j-i);
+            }
+        }
+
+        return maxRamp;
+    }
+
+    public static String addSpaces(String s, int[] spaces) {
+        StringBuilder result = new StringBuilder();
+        int index = 0;
+        for (int i : spaces) {
+            result.append(s, index, i);
+            result.append(" ");
+            index = i;
+        }
+        result.append(s.substring(index));
+        return result.toString();
+    }
+
+    public static int calculate(String s) {
+        s = s.replaceAll("\\s+", "");
+        Stack<String> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == ' ' || c == '(' || c == ')') {
+                continue;
+            }
+            if (Character.isDigit(c)) {
+                stack.push(String.valueOf(c));
+            } else if (c == '+') {
+                String prev = stack.pop();
+                Character n = ' ';
+                while (!Character.isDigit(n)) {
+                    n = s.charAt(++i);
+                }
+                String next = String.valueOf(n);
+                stack.push(String.valueOf(Integer.parseInt(prev) + Integer.parseInt(next)));
+            } else if (c == '-') {
+                Character n = ' ';
+                while (!Character.isDigit(n)) {
+                    n = s.charAt(++i);
+                }
+                String next = String.valueOf(n);
+                if (stack.isEmpty()) {
+                    stack.push(String.valueOf(-Integer.parseInt(next)));
+                } else {
+                    String prev = stack.pop();
+                    stack.push(String.valueOf(Integer.parseInt(prev) - Integer.parseInt(next)));
+                }
+            }
+        }
+        return Integer.parseInt(stack.pop());
+    }
+
+    public static void rotate(int[] nums, int k) {
+        for (int i = 0; i < k; i++) {
+            int hold = nums[nums.length - 1];
+            for (int j = 0; j < nums.length; j++) {
+                int temp = nums[j];
+                nums[j] = hold;
+                hold = temp;
+            }
+        }
+    }
+
+    public static void rotate2(int[] nums, int k) {
+        int n = nums.length;
+        k = k % n;
+        reverse(nums, 0, n - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, n - 1);
+    }
+
+    private static void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    public static boolean canConstruct(String ransomNote, String magazine) {
+        boolean result = true;
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char c : magazine.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        for (char c : ransomNote.toCharArray()) {
+            if (!map.containsKey(c) || map.get(c) == 0) {
+                result = false;
+                break;
+            }
+            map.put(c, map.get(c) - 1);
+        }
+        return result;
+    }
+
+    public static boolean checkIfExist(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                if (j != i && arr[i] == 2 * arr[j]) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public static boolean rotateString(String s, String goal) {
-        if(s.length() != goal.length()) return false;
-        for(int i = 0; i < s.length(); i++) {
+        if (s.length() != goal.length()) return false;
+        for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(0);
             s = s.substring(1) + c;
-            if(s.equals(goal)) return true;
+            if (s.equals(goal)) return true;
         }
         return false;
     }
