@@ -27,7 +27,242 @@ public class LeetCodeQuestions {
 //        System.out.println(calculate("-(2 + 3)"));
 //        System.out.println(addSpaces("icodeinpython", new int[]{1, 5, 7, 9}));
 //        System.out.println(addSpaces("LeetcodeHelpsMeLearn", new int[]{8,13,15}));
-        System.out.println(maxWidthRamp(new int[]{9,8,1,0,1,9,4,0,4,1}));
+//        System.out.println(maxWidthRamp(new int[]{9,8,1,0,1,9,4,0,4,1}));
+//        int[][] customers = {
+//                {5, 2},
+//                {5, 4},
+//                {10, 3},
+//                {20, 1}
+//        };
+//        int[][] customers = {
+//                {1, 2},
+//                {2, 5},
+//                {4, 3}
+//        };
+//        System.out.println(averageWaitingTime(customers));
+
+//        System.out.println(Arrays.toString(frequencySort(new int[]{1, 1, 2, 2, 2, 3})));
+
+//        int[] arr = {1,2,3};
+//        System.out.println(maxCount(arr, 5080, 14));
+//        System.out.println(findKthBit(4, 11));
+//        System.out.println(isPrefixOfWord("this problem is an easy problem", "pro"));
+
+//        int[][] original = {
+//                {1, 2, 3},
+//                {4, 5, 6},
+//                {7, 8, 9}
+//        };
+//        rotate(original);
+//        System.out.println(Arrays.deepToString(original));
+
+//        System.out.println(containsDuplicate(new int[] {1,2,3}));
+
+//        List<List<Integer>> res = generate(5);
+//        for (List<Integer> innerList : res) {
+//            System.out.println(innerList); // Prints each inner list
+//        }
+
+        System.out.println(Arrays.toString(asteroidCollision(new int[]{-2, -2, 1, -2})));
+    }
+
+    public static int[] asteroidCollision(int[] asteroids) {
+        Stack<Integer> stack = new Stack<>();
+
+        for (int ast : asteroids) {
+            if (stack.isEmpty()) {
+                stack.push(ast);
+            } else {
+                if ((stack.peek() > 0 && ast > 0) || (stack.peek() < 0 && ast < 0) || (stack.peek() < 0 && ast > 0)) {
+                    stack.push(ast);
+                } else {
+                    boolean add = false;
+                    while (!stack.isEmpty() && stack.peek() > 0 && ast < 0) {
+                        if (Math.abs(ast) > Math.abs(stack.peek())) {
+                            stack.pop();
+                            add = true;
+                        } else if (Math.abs(ast) == Math.abs(stack.peek())) {
+                            stack.pop();
+                            add = false;
+                            break;
+                        } else {
+                            add = false;
+                            break;
+                        }
+                    }
+                    if (add) {
+                        stack.push(ast);
+                    }
+                }
+            }
+        }
+        int[] res = new int[stack.size()];
+        for (int i = 0; i < stack.size(); i++) {
+            res[i] = stack.get(i);
+        }
+        return res;
+    }
+
+//    public static int[] dailyTemperatures(int[] temperatures) {
+//        int[] res = new int[temperatures.length];
+//        for (int i = 0; i < temperatures.length; i++) {
+//
+//        }
+//    }
+
+    public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (numRows == 0) return res;
+        res.add(List.of(1));
+        for (int i = 1; i < numRows; i++) {
+            List<Integer> temp = new ArrayList<>();
+            List<Integer> prev = res.get(res.size() - 1);
+            temp.add(1);
+            for (int j = 1; j < i; j++) {
+                temp.add(prev.get(j) + prev.get(j - 1));
+            }
+            temp.add(1);
+            res.add(temp);
+        }
+        return res;
+    }
+
+    private static void setRows(List<List<Integer>> res, int row) {
+        if (row == 2) {
+            return;
+        }
+        List<Integer> prev = res.get(res.size() - 1);
+        List<Integer> current = new ArrayList<>();
+        for (int i = 0; i < prev.size(); i++) {
+            if (i == 0) {
+                current.add(prev.get(i));
+                current.add(prev.get(i) + prev.get(i + 1));
+            } else if (i == prev.size() - 1) {
+                current.add(prev.get(i));
+            } else {
+                current.add(prev.get(i) + prev.get(i + 1));
+            }
+        }
+        res.add(current);
+        setRows(res, row - 1);
+    }
+
+    public static boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int i : nums) {
+            if (set.contains(i)) {
+                return true;
+            }
+            set.add(i);
+        }
+        return false;
+    }
+
+    public static void rotate(int[][] matrix) {
+        int length = matrix.length;
+        int[][] deepCopy = new int[length][];
+        for (int i = 0; i < length; i++) {
+            deepCopy[i] = Arrays.copyOf(matrix[i], length);
+        }
+        for (int i = 0; i < length; i++) {
+            int[] row = new int[length];
+            for (int j = length - 1; j >= 0; j--) {
+                row[length - j - 1] = deepCopy[j][i];
+            }
+            matrix[i] = row;
+        }
+    }
+
+    public static int isPrefixOfWord(String sentence, String searchWord) {
+        String[] arr = sentence.toLowerCase().split(" ");
+        for (int i = 0; i < arr.length; i++) {
+            String word = arr[i];
+            if (word.startsWith(searchWord)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
+
+    public static char findKthBit(int n, int k) {
+        String s1 = "0";
+        String s = getNext(s1, n);
+        return s.charAt(k - 1);
+    }
+
+    private static String getNext(String s, int n) {
+        if (n == 1) {
+            return s;
+        }
+        String next = s + "1" + reverse(invert(s));
+        return getNext(next, n - 1);
+    }
+
+    private static String invert(String s) {
+        StringBuilder res = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            res.append(c == '0' ? "1" : "0");
+        }
+        return res.toString();
+    }
+
+    private static String reverse(String s) {
+        return new StringBuilder(s).reverse().toString();
+    }
+
+    public static int maxCount(int[] banned, int n, int maxSum) {
+        Set<Integer> list = new HashSet<>();
+        for (int num : banned) {
+            list.add(num);
+        }
+        int sum = 0;
+        int count = 0;
+        for (int i = 1; i <= n; i++) {
+            if (!list.contains(i)) {
+                if (sum + i <= maxSum) {
+                    sum += i;
+                    count++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static int[] frequencySort(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        List<Map.Entry<Integer, Integer>> entries = new ArrayList<>(map.entrySet());
+        entries.sort((entry1, entry2) -> {
+            int valueComparison = entry1.getValue().compareTo(entry2.getValue());
+            return (valueComparison != 0) ? valueComparison : entry2.getKey().compareTo(entry1.getKey());
+        });
+        int[] res = new int[nums.length];
+        int index = 0;
+        for (Map.Entry<Integer, Integer> entry : entries) {
+            for (int i = 0; i < entry.getValue(); i++) {
+                res[index++] = entry.getKey();
+            }
+        }
+        return res;
+    }
+
+    public static double averageWaitingTime(int[][] customers) {
+        double totalWaitingTime = 0;
+        int nextTime = customers[0][0];
+        for (int[] customer : customers) {
+            if (nextTime >= customer[0]) {
+                nextTime += customer[1];
+            } else {
+                nextTime = customer[0] + customer[1];
+            }
+            double waitTime = nextTime - customer[0];
+            totalWaitingTime += waitTime;
+        }
+        return totalWaitingTime / customers.length;
     }
 
     public static int maxWidthRamp(int[] nums) {
@@ -35,16 +270,16 @@ public class LeetCodeQuestions {
         int maxRamp = 0;
 
         Stack<Integer> stack = new Stack<>();
-        for(int i =0; i<len; i++) {
-            if(stack.isEmpty() || nums[stack.peek()] > nums[i]) {
+        for (int i = 0; i < len; i++) {
+            if (stack.isEmpty() || nums[stack.peek()] > nums[i]) {
                 stack.push(i);
             }
         }
 
-        for(int j=len-1; j>=0; j--) {
-            while(!stack.isEmpty() && nums[stack.peek()] <= nums[j]) {
-                int  i = stack.pop();
-                maxRamp = Math.max(maxRamp, j-i);
+        for (int j = len - 1; j >= 0; j--) {
+            while (!stack.isEmpty() && nums[stack.peek()] <= nums[j]) {
+                int i = stack.pop();
+                maxRamp = Math.max(maxRamp, j - i);
             }
         }
 
