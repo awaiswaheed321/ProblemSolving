@@ -74,15 +74,95 @@ public class LeetCodeQuestions2 {
 //        String[] words = {"pay", "attention", "practice", "attend"};
 //        System.out.println(prefixCount(words, "at"));
 
-        System.out.println(grayCode2(0));
-        System.out.println(grayCode2(1));
-        System.out.println(grayCode2(3));
+//        System.out.println(grayCode2(0));
+//        System.out.println(grayCode2(1));
+//        System.out.println(grayCode2(3));
+
+//        System.out.println(is123Array(new int[] {2,3,5}));
+//        System.out.println(is123Array(new int[] {2,3,5, 6}));
+
+//        System.out.println(isIntegerArrayPalindrome(new int[] {1,2,3,3,2,1}));
+//        System.out.println(isIntegerArrayPalindrome(new int[] {1,2,3,2,1}));
+//        System.out.println(isIntegerArrayPalindrome(new int[] {1,2,3,3,2}));
+//
+//        System.out.println(isStringPalindrome("mom"));
+//        System.out.println(isStringPalindrome("mnnnm"));
+//        System.out.println(isStringPalindrome("mmnm"));
+
+//        System.out.println(checkMidParity(new int[]{1, 2, 3, 4, 6}));
+    }
+
+//    public int removeDuplicates(int[] nums) {
+//        int index1 = 0, index2 = 1;
+//        while (index2 < nums.length) {
+//            if (nums[index1] != nums[index2]) {
+//
+//            }
+//        }
+//    }
+
+    public static boolean checkMidParity(int[] nums) {
+        int start = 0, end = nums.length - 1;
+        int rightSum = 0, leftSum = 0;
+        while (start < end) {
+            rightSum += nums[start++];
+            leftSum += nums[end--];
+        }
+        return leftSum % 2 == rightSum % 2;
+    }
+
+    public static boolean isIntegerArrayPalindrome(int[] nums) {
+        int start = 0, end = nums.length - 1;
+        while (start < end) {
+            if (nums[start++] != nums[end--]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isStringPalindrome(String s) {
+        int start = 0, end = s.length() - 1;
+        while (start < end) {
+            if (s.charAt(start++) != s.charAt(end--)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean is123Array(int[] arr) {
+        for (int num : arr) {
+            if (num % 6 == 0 || num % 10 == 0 || num % 15 == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean is123Array1(int[] arr) {
+        int count = 0;
+        for (int num : arr) {
+            if (num % 2 == 0) {
+                count++;
+            }
+            if (num % 3 == 0) {
+                count++;
+            }
+            if (num % 5 == 0) {
+                count++;
+            }
+            if (num % 2 != 0 && num % 3 != 0 && num % 5 != 0) {
+                count++;
+            }
+        }
+        return count == arr.length;
     }
 
     public static List<Integer> grayCode2(int n) {
         List<Integer> res = new ArrayList<>();
         int len = (int) Math.pow(2, n);
-        for(int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++) {
             res.add(i ^ (i >> 1));
         }
         return res;
