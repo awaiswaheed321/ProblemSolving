@@ -90,6 +90,139 @@ public class LeetCodeQuestions2 {
 //        System.out.println(isStringPalindrome("mmnm"));
 
 //        System.out.println(checkMidParity(new int[]{1, 2, 3, 4, 6}));
+
+//        boolean[][] res = subset1(new int[]{3,4,7,8}, 15);
+//        printBooleanArray(res);
+
+//        int[][] arr = {
+//                {1, 3, 1},
+//                {1, 5, 1},
+//                {4, 2, 1}
+//        };
+//        int[][] arr = {
+//                {1, 2, 3},
+//                {4, 5, 6}
+//        };
+//        System.out.println(minPathSum(arr));
+
+//        List<List<Integer>> list = Arrays.asList(
+//                Arrays.asList(-1),
+//                Arrays.asList(2, 3),
+//                Arrays.asList(1, -1, -3)
+////                Arrays.asList(4, 1, 8, 3)
+//        );
+//
+//        System.out.println(minimumTotal(list));
+
+        System.out.println(Arrays.toString(mergeSort(new int[]{5,1,2,5,6, 1}, 0, 5)));
+    }
+
+    public static int[] mergeSort(int[] array, int start, int end) {
+        if (start >= end) {
+            return new int[]{array[start]};
+        }
+        int mid = (start + end) / 2;
+        int[] left = mergeSort(array, start, mid);
+        int[] right = mergeSort(array, mid+1, end);
+        return merge(left, right);
+    }
+
+    public static int[] merge(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
+        int leftIndex = 0, rightIndex = 0, resultIndex = 0;
+        while (leftIndex < left.length && rightIndex < right.length) {
+            if (left[leftIndex] < right[rightIndex]) {
+                result[resultIndex++] = left[leftIndex++];
+            } else {
+                result[resultIndex++] = right[rightIndex++];
+            }
+        }
+        while (leftIndex < left.length) {
+            result[resultIndex++] = left[leftIndex++];
+        }
+        while (rightIndex < right.length) {
+            result[resultIndex++] = right[rightIndex++];
+        }
+        return result;
+    }
+
+    public static int minimumTotal(List<List<Integer>> triangle) {
+        List<Integer> sums = new ArrayList<>(triangle.get(0));
+        for (int i = 1; i < triangle.size(); i++) {
+            List<Integer> internalSums = new ArrayList<>();
+            internalSums.add(triangle.get(i).get(0) + sums.get(0));
+            for (int j = 1; j < triangle.get(i).size() - 1; j++) {
+                internalSums.add(triangle.get(i).get(j) + Math.min(sums.get(j), sums.get(j - 1)));
+            }
+            internalSums.add(triangle.get(i).get(triangle.get(i).size() - 1) + sums.get(sums.size() - 1));
+            sums = internalSums;
+        }
+        return sums.stream().min(Integer::compareTo).get();
+    }
+
+    public int jump(int[] nums) {
+        int start = 0, end = 0, jumps = 0;
+        while (end < nums.length - 1) {
+            int farthest = 0;
+            for (int i = start; i <= end; i++) {
+                farthest = Math.max(farthest, i + nums[i]);
+            }
+            start = end + 1;
+            end = farthest;
+            jumps++;
+        }
+        return jumps;
+    }
+
+    public static int minPathSum(int[][] grid) {
+        int rows = grid.length;
+        int columns = grid[0].length;
+        int[][] sum = new int[rows][columns];
+        sum[0][0] = grid[0][0];
+        for (int i = 1; i < rows; i++) {
+            sum[i][0] = grid[i][0] + sum[i - 1][0];
+        }
+        for (int i = 1; i < columns; i++) {
+            sum[0][i] = grid[0][i] + sum[0][i - 1];
+        }
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < columns; j++) {
+                sum[i][j] = Math.min(sum[i - 1][j], sum[i][j - 1]) + grid[i][j];
+            }
+        }
+
+        return sum[rows - 1][columns - 1];
+    }
+
+    public static void printBooleanArray(boolean[][] array) {
+        int cols = array[0].length;
+
+        for (int col = 0; col < cols; col++) {
+            System.out.print(col + " ");
+        }
+        System.out.println();
+        for (boolean[] row : array) {
+            for (boolean value : row) {
+                System.out.print(value ? "T " : "F ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static boolean[][] subset1(int[] arr, int k) {
+        boolean[][] res = new boolean[arr.length][k + 1];
+        res[0][arr[0]] = true;
+        res[0][0] = true;
+        for (int i = 1; i < arr.length; i++) {
+            for (int j = 0; j < k + 1; j++) {
+                if (j < arr[i]) {
+                    res[i][j] = res[i - 1][j];
+                } else {
+                    res[i][j] = res[i - 1][j] || res[i - 1][j - arr[i]];
+                }
+            }
+        }
+        return res;
     }
 
 //    public int removeDuplicates(int[] nums) {
