@@ -114,7 +114,95 @@ public class LeetCodeQuestions2 {
 //
 //        System.out.println(minimumTotal(list));
 
-        System.out.println(Arrays.toString(mergeSort(new int[]{5,1,2,5,6, 1}, 0, 5)));
+//        System.out.println(Arrays.toString(mergeSort(new int[]{5,1,2,5,6, 1}, 0, 5)));
+
+
+//        System.out.println(Arrays.toString(fbsSort(new int[]{11, 18, 9, 56, 23, 16})));
+//        int[] arr = new int[]{2,1,2,1,2,1,2,1};
+//        sort12s(arr);
+//        System.out.println(Arrays.toString(arr));
+
+//        System.out.println(Arrays.toString(sort(new String[] {"B", "R", "G", "G", "R", "B", "B", "R"})));
+//        List<Long> arr =  Arrays.asList(
+//                41L, 34L, 46L, 9L, 37L, 32L, 42L, 21L, 7L, 13L,
+//                1L, 24L, 3L, 43L, 2L, 23L, 8L, 45L, 19L, 30L,
+//                29L, 18L, 35L, 11L
+//        );
+//        System.out.println(getWays(250, arr));
+
+
+    }
+
+    public static long getWays(int n, List<Long> c) {
+        // Write your code here
+        long[] res = new long[n + 1];
+        res[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            if (i % c.get(0) == 0) {
+                res[i] = 1;
+            }
+        }
+        for (int i = 1; i < c.size(); i++) {
+            int coin = c.get(i).intValue();
+            for (int j = coin; j <= n; j++) {
+                res[j] = res[j - coin] + res[j];
+            }
+        }
+        return res[res.length - 1];
+    }
+
+    public static String[] sort(String[] toys) {
+        int b = 0, r = 0, g = toys.length - 1;
+
+        while (r <= g) {
+            if (toys[r].equals("B")) {
+                String temp = toys[b];
+                toys[b] = toys[r];
+                toys[r] = temp;
+                b++;
+                r++;
+            } else if (toys[r].equals("R")) {
+                r++;
+            } else {
+                String temp = toys[r];
+                toys[r] = toys[g];
+                toys[g] = temp;
+                g--;
+            }
+        }
+        return toys;
+    }
+
+    public static void sort12s(int[] arr) {
+        int i = 0, j = arr.length - 1;
+        while (i < j) {
+            while (i < j && arr[i] != 2) {
+                i++;
+            }
+            while (i < j && arr[j] != 1) {
+                j--;
+            }
+            if (i < j) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                i++;
+                j--;
+            }
+        }
+    }
+
+    public static int[] fbsSort(int[] arr) {
+        Arrays.sort(arr);
+        int[] res = new int[arr.length];
+        int i = 0, j = arr.length - 1, k = 0;
+        while (i <= j) {
+            res[k++] = arr[i++];
+            if (k < arr.length) {
+                res[k++] = arr[j--];
+            }
+        }
+        return res;
     }
 
     public static int[] mergeSort(int[] array, int start, int end) {
@@ -123,7 +211,7 @@ public class LeetCodeQuestions2 {
         }
         int mid = (start + end) / 2;
         int[] left = mergeSort(array, start, mid);
-        int[] right = mergeSort(array, mid+1, end);
+        int[] right = mergeSort(array, mid + 1, end);
         return merge(left, right);
     }
 
