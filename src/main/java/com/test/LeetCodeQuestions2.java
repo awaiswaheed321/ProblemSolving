@@ -133,6 +133,19 @@ public class LeetCodeQuestions2 {
 
     }
 
+    public static int divisibleSumPairs(int n, int k, List<Integer> ar) {
+        int counter = 0;
+        for(int i=0; i<ar.size(); i++) {
+            for(int j = i+1; j<ar.size(); j++) {
+                int sum = ar.get(i) + ar.get(j);
+                if(sum % k == 0) {
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
     public static long getWays(int n, List<Long> c) {
         // Write your code here
         long[] res = new long[n + 1];
