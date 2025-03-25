@@ -130,7 +130,27 @@ public class LeetCodeQuestions2 {
 //        );
 //        System.out.println(getWays(250, arr));
 
+        System.out.println(countingValleys(8, "UDDDUDUU"));
+    }
 
+    public static int countingValleys(int steps, String path) {
+        boolean isValley = false;
+        int counter = 0;
+        int level = 0;
+        for(char c: path.toCharArray()) {
+            if(c == 'U') {
+                level++;
+            } else if(c == 'D') {
+                level--;
+            }
+            if(level < 0) {
+                isValley = true;
+            } else if(level == 0 && isValley) {
+                isValley = false;
+                counter++;
+            }
+        }
+        return counter;
     }
 
     public static int divisibleSumPairs(int n, int k, List<Integer> ar) {
