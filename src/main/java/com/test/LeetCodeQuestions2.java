@@ -133,6 +133,24 @@ public class LeetCodeQuestions2 {
         System.out.println(countingValleys(8, "UDDDUDUU"));
     }
 
+    public static int pickingNumbers(List<Integer> a) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for (int num : a) {
+            freq.put(num, freq.getOrDefault(num, 0) + 1);
+        }
+        int max = 0;
+        for (int num : freq.keySet()) {
+            int count = freq.get(num);
+            if (freq.containsKey(num + 1)) {
+                count += freq.get(num + 1);
+            }
+
+            max = Math.max(max, count);
+        }
+
+        return max;
+    }
+
     public static int countingValleys(int steps, String path) {
         boolean isValley = false;
         int counter = 0;
