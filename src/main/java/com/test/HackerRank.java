@@ -1,5 +1,7 @@
 package com.test;
 
+import java.util.List;
+
 public class HackerRank {
     public static void main(String[] args) {
 
@@ -16,5 +18,15 @@ public class HackerRank {
         } else {
             return "Mouse C";
         }
+    }
+
+    public static String angryProfessor(int k, List<Integer> a) {
+        int count = 0;
+
+        for (int arvT : a) {
+            if (arvT <= 0) count++;
+        }
+
+        return count < k ? "YES" : "NO";
     }
 }
