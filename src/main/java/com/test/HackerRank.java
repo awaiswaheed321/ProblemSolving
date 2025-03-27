@@ -29,4 +29,20 @@ public class HackerRank {
 
         return count < k ? "YES" : "NO";
     }
+
+    static int getMoneySpent(int[] keyboards, int[] drives, int b) {
+        int max = -1;
+        for(int i= keyboards.length -1; i>=0; i--) {
+            for(int j= drives.length -1; j>=0; j--) {
+                int sum = keyboards[i] + drives[j];
+                if(sum > max && sum <=b) {
+                    max = sum;
+                }
+            }
+        }
+        return max;
+    }
+
+
+
 }
