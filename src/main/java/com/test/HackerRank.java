@@ -52,4 +52,9 @@ public class HackerRank {
         return maxHeight * word.length();
     }
 
+    public static int saveThePrisoner(int n, int m, int s) {
+        return ((s - 1 + m - 1) % n)+1;
+
+    }
+
 }
