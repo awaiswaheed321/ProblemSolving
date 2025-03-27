@@ -43,6 +43,13 @@ public class HackerRank {
         return max;
     }
 
-
+    public static int designerPdfViewer(List<Integer> h, String word) {
+        int maxHeight = 0;
+        for(char c: word.toCharArray()) {
+            int value = h.get((int) c - 97);
+            maxHeight = Math.max(maxHeight, value);
+        }
+        return maxHeight * word.length();
+    }
 
 }
