@@ -57,4 +57,16 @@ public class HackerRank {
 
     }
 
+    public static int findDigits(int n) {
+        int count = 0;
+        int num = n;
+        while(num > 0) {
+            int d = num % 10;
+            num /= 10;
+            if(d == 0) continue;
+            if(n%d == 0) count++;
+        }
+        return count;
+    }
+
 }
