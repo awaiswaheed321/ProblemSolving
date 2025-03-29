@@ -113,4 +113,43 @@ public class HackerRank {
         }
         return (singleCount * div ) + remainingCount;
     }
+
+    // public static int jumpingOnClouds(List<Integer> c) {
+    // // Write your code here
+    //     int i1 = 0;
+    //     int i2 = c.get(1) == 0 ? 1 : -1;
+    //     for(int i= 2; i<c.size(); i++) {
+    //         if(c.get(i) == 1) {
+    //             i1 = i2;
+    //             i2 = -1;
+    //         } else {
+    //             if(i1 != -1 && i2 != -1) {
+    //             int next = Math.min(i1, i2) + 1;
+    //             i1 = i2;
+    //             i2 = next;
+    //         } else if(i1 == -1) {
+    //             i1 = i2;
+    //             i2 += 1;
+    //         } else if( i2 == -1) {
+    //             int next = i1 + 1;
+    //             i1 = i2;
+    //             i2 = next;
+    //         }
+    //         }
+    //     }
+    //     return i2;
+    // }
+
+    public static int jumpingOnClouds(List<Integer> c) {
+        int jumps = 0;
+        int i = 0;
+
+        while (i < c.size() - 1) {
+            // If possible, prefer double jumps over single jumps
+            i += (i + 2 < c.size() && c.get(i + 2) == 0) ? 2 : 1;
+            jumps++;
+        }
+
+        return jumps;
+    }
 }
