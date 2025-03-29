@@ -96,4 +96,21 @@ public class HackerRank {
         }
         return res;
     }
+
+    public static long repeatedString(String s, long n) {
+        long div = n/s.length();
+        long rem = n % s.length();
+        long singleCount = 0;
+        long remainingCount = 0;
+        for(int i=0; i< s.length(); i++) {
+            char c = s.charAt(i);
+            if(c == 'a') {
+                singleCount++;
+                if(i < rem) {
+                    remainingCount++;
+                }
+            }
+        }
+        return (singleCount * div ) + remainingCount;
+    }
 }
