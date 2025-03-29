@@ -1,5 +1,6 @@
 package com.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HackerRank {
@@ -69,4 +70,30 @@ public class HackerRank {
         return count;
     }
 
+    public static List<Integer> circularArrayRotation(List<Integer> a, int k, List<Integer> queries) {
+        int k1 = k % a.size();
+        for(int i = 0, j = a.size() - k1 - 1; j > i ; i++, j--) {
+            int swap = a.get(i);
+            a.set(i, a.get(j));
+            a.set(j, swap);
+        }
+
+        for(int i = a.size() - k1, j = a.size() - 1; j > i; i++, j--) {
+            int swap = a.get(i);
+            a.set(i, a.get(j));
+            a.set(j, swap);
+        }
+
+        for(int i = 0, j= a.size() - 1;j > i; i++, j--) {
+            int swap = a.get(i);
+            a.set(i, a.get(j));
+            a.set(j, swap);
+        }
+
+        List<Integer> res = new ArrayList<>();
+        for(int i: queries) {
+            res.add((a.get(i)));
+        }
+        return res;
+    }
 }
