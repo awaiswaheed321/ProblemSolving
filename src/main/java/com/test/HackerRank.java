@@ -1,5 +1,6 @@
 package com.test;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,5 +152,14 @@ public class HackerRank {
         }
 
         return jumps;
+    }
+
+    public static void extraLongFactorials(int n) {
+        // Write your code here
+        BigInteger fact = BigInteger.valueOf(n--);
+        while(n > 0) {
+            fact = fact.multiply(BigInteger.valueOf(n--));
+        }
+        System.out.println(fact);
     }
 }
