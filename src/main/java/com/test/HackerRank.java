@@ -2,7 +2,9 @@ package com.test;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HackerRank {
     public static void main(String[] args) {
@@ -177,5 +179,45 @@ public class HackerRank {
             total += floor;
         }
         return total;
+    }
+
+    public static int alternate(String s) {
+        Set<Character> uniqueChars = new HashSet<>();
+        for (char c : s.toCharArray()) {
+            uniqueChars.add(c);
+        }
+
+        Character[] chars = uniqueChars.toArray(new Character[0]);
+        int maxLength = 0;
+
+        // Try all pairs of unique characters
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = i + 1; j < chars.length; j++) {
+                char char1 = chars[i];
+                char char2 = chars[j];
+
+                StringBuilder filtered = new StringBuilder();
+                for (char c : s.toCharArray()) {
+                    if (c == char1 || c == char2) {
+                        filtered.append(c);
+                    }
+                }
+
+                if (isAlternating(filtered.toString())) {
+                    maxLength = Math.max(maxLength, filtered.length());
+                }
+            }
+        }
+
+        return maxLength;
+    }
+
+    private static boolean isAlternating(String s) {
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(i) == s.charAt(i + 1)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
