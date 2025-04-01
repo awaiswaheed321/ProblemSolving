@@ -162,4 +162,20 @@ public class HackerRank {
         }
         System.out.println(fact);
     }
+
+    public static int viralAdvertising(int n) {
+        // Write your code here
+        int shared = 5;
+        int liked = 2;
+        int total = 2;
+        int i=1;
+        while(i<n) {
+            i++;
+            shared = liked * 3;
+            int floor = shared / 2;
+            liked = floor;
+            total += floor;
+        }
+        return total;
+    }
 }
