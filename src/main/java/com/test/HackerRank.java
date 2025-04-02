@@ -220,4 +220,18 @@ public class HackerRank {
         }
         return true;
     }
+
+    public static String caesarCipher(String s, int k) {
+        StringBuilder str = new StringBuilder();
+        for(char c: s.toCharArray()) {
+            if((c >= 97 && c <= 122)) {
+                str.append((char) ((c - 97 + k) % 26 + 97));
+            } else if((c >= 65 && c<=90 )) {
+                str.append((char) ((c - 65 + k) % 26 + 65));
+            }else {
+                str.append(c);
+            }
+        }
+        return str.toString();
+    }
 }
