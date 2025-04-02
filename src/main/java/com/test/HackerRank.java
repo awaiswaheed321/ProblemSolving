@@ -258,4 +258,22 @@ public class HackerRank {
         }
         return count;
     }
+
+    public static String pangrams(String s) {
+        boolean[] arr = new boolean[26];
+        for(char c: s.toCharArray()) {
+            if(c >= 65 && c<=90) {
+                arr[c - 65] = true;
+            } else if (c >= 97 && c<=122) {
+                arr[c - 97] = true;
+            }
+        }
+
+        for(boolean b: arr) {
+            if(!b) return "not pangram";
+        }
+
+        return "pangram";
+    }
+
 }
