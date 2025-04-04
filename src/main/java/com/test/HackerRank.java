@@ -1,10 +1,7 @@
 package com.test;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class HackerRank {
     public static void main(String[] args) {
@@ -316,5 +313,24 @@ public class HackerRank {
             }
         }
         return i+1;
+    }
+
+    public int majorityElement(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for(int n: nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+
+        int maxNum = 0, count = 0;
+        for(int n: map.keySet()) {
+            int c = map.get(n);
+            if(c > count) {
+                count = c;
+                maxNum = n;
+            }
+        }
+
+        return maxNum;
     }
 }
