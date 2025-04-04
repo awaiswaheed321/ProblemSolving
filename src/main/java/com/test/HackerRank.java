@@ -305,4 +305,16 @@ public class HackerRank {
             nums1[k--] = nums2[j--];
         }
     }
+
+    public int removeDuplicates(int[] nums) {
+        int len= nums.length;
+        int i=0;
+
+        for(int k= 0; k< len; k++) {
+            if(nums[i] != nums[k]) {
+                nums[++i] = nums[k];
+            }
+        }
+        return i+1;
+    }
 }
