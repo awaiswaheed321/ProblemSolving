@@ -370,4 +370,21 @@ public class HackerRank {
             nums[y] = swap;
         }
     }
+    public int maxProfit(int[] prices) {
+        int len = prices.length;
+        int[] mins = new int[len];
+        mins[0] = prices[0];
+        for(int i = 1; i<len; i++) {
+            mins[i] = Math.min(prices[i-1], mins[i-1]);
+        }
+        int max = 0;
+        for(int i=1;i<len;i++){
+            if(prices[i] > mins[i]) {
+                max = Math.max(max, prices[i] - mins[i]);
+            }
+        }
+
+        return max;
+    }
+
 }
