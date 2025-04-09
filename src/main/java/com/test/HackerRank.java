@@ -354,4 +354,20 @@ public class HackerRank {
         }
         return max;
     }
+
+    public void rotate(int[] nums, int k) {
+        int j = nums.length - (k%nums.length);
+        swapNums(nums, 0, j);
+        swapNums(nums, j, nums.length);
+        swapNums(nums, 0, nums.length);
+
+    }
+
+    public void swapNums(int[] nums, int i, int j) {
+        for(int x=i, y = j-1; x < y; x++, y--) {
+            int swap = nums[x];
+            nums[x] = nums[y];
+            nums[y] = swap;
+        }
+    }
 }
