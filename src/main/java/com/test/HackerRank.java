@@ -396,4 +396,18 @@ public class HackerRank {
         }
         return finalPos == 0;
     }
+
+    public int maxProfit2(int[] prices) {
+        int[] profits = new int[prices.length];
+        for(int i =1; i< prices.length; i++) {
+            if(prices[i] > prices[i-1]) {
+                profits[i] = prices[i] - prices[i-1];
+            }
+        }
+        int sum = 0;
+        for(int n: profits) {
+            sum+= n;
+        }
+        return sum;
+    }
 }
