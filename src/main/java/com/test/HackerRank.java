@@ -6,7 +6,17 @@ import java.util.*;
 
 public class HackerRank {
     public static void main(String[] args) {
+    }
 
+    public boolean isPalindrome(String s) {
+        String str = s.trim().replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        int left = 0, right = str.length() - 1;
+        while(left < right) {
+            if(str.charAt(left++) != str.charAt(right--)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     static String catAndMouse(int x, int y, int z) {
