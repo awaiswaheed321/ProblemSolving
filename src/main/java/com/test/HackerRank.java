@@ -8,6 +8,26 @@ public class HackerRank {
     public static void main(String[] args) {
     }
 
+
+
+    public boolean canConstruct(String ransomNote, String magazine) {
+        HashMap<Character, Integer> rMap = new HashMap<>();
+        HashMap<Character, Integer> mMap = new HashMap<>();
+        for(char c : magazine.toCharArray()) {
+            mMap.put(c,mMap.getOrDefault(c, 0) + 1);
+        }
+        for(char c : ransomNote.toCharArray()) {
+            rMap.put(c,rMap.getOrDefault(c,0) + 1);
+        }
+        for(Map.Entry<Character, Integer> entry : rMap.entrySet()) {
+            if(!mMap.containsKey(entry.getKey())
+            || mMap.get(entry.getKey()) < entry.getValue()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean isPalindrome(String s) {
         String str = s.trim().replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
         int left = 0, right = str.length() - 1;
