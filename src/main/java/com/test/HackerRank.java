@@ -1,6 +1,7 @@
 package com.test;
 
 import java.math.BigInteger;
+import java.security.KeyStore;
 import java.util.*;
 
 public class HackerRank {
@@ -426,4 +427,19 @@ public class HackerRank {
         String[] arr = s.split(" ");
         return arr[arr.length - 1].length();
     }
+
+    public void printDuplicates(String str) {
+        String[] arr = str.split(" ");
+        HashMap<String, Integer> map = new HashMap<>();
+        for(String s: arr) {
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+
+        for(Map.Entry<String, Integer> entry: map.entrySet()) {
+            if(entry.getValue() > 1) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            }
+        }
+    }
+
 }
