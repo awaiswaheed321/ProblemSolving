@@ -17,10 +17,6 @@ public class HackerRank {
         System.out.println(test2(listOfLists));
     }
 
-    public static void test3(List<List<String>> listOfLists) {
-
-    }
-
     public static List<String> test1(List<List<String>> l1) {
         return l1.stream().flatMap(Collection::stream).sorted((a, b) -> {
             if(a.equalsIgnoreCase(b)) {
