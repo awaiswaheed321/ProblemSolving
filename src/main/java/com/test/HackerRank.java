@@ -3,10 +3,40 @@ package com.test;
 import java.math.BigInteger;
 import java.security.KeyStore;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class HackerRank {
     public static void main(String[] args) {
+        List<List<String>> listOfLists = new ArrayList<>();
+
+        listOfLists.add(Arrays.asList("apple", "banana", "cherry"));
+        listOfLists.add(Arrays.asList("dog", "elephant"));
+        listOfLists.add(Arrays.asList("fish", "goat", "Iguana", "alqw", "iltw"));
+
+        System.out.println(test1(listOfLists));
+        System.out.println(test2(listOfLists));
     }
+
+    public static void test3(List<List<String>> listOfLists) {
+
+    }
+
+    public static List<String> test1(List<List<String>> l1) {
+        return l1.stream().flatMap(Collection::stream).sorted((a, b) -> {
+            if(a.equalsIgnoreCase(b)) {
+                return 0;
+            } else if(a.toLowerCase().compareTo(b.toLowerCase()) > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }).collect(Collectors.toList());
+    }
+
+    public static List<String> test2(List<List<String>> l1) {
+        return l1.stream().flatMap((List::stream)).filter(x -> x.startsWith("a")).collect(Collectors.toList());
+    }
+
 
     public static boolean canConstruct2(String ransomNote, String magazine) {
         int[] abc = new int[26];
