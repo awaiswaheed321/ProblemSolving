@@ -114,4 +114,8 @@ public class StreamsPractice {
     public static List<Integer> slidingWindowSums(List<Integer> numbers, int windowSize) {
         return null;
     }
+
+    public Map<Integer, List<Person>> groupByAge(List<Person> list) {
+        return list.stream().collect(Collectors.groupingBy(Person::getAge));
+    }
 }
