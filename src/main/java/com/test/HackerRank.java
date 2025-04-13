@@ -18,15 +18,7 @@ public class HackerRank {
     }
 
     public static List<String> test1(List<List<String>> l1) {
-        return l1.stream().flatMap(Collection::stream).sorted((a, b) -> {
-            if(a.equalsIgnoreCase(b)) {
-                return 0;
-            } else if(a.toLowerCase().compareTo(b.toLowerCase()) > 0) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }).collect(Collectors.toList());
+        return l1.stream().flatMap(Collection::stream).sorted(String::compareToIgnoreCase).collect(Collectors.toList());
     }
 
     public static List<String> test2(List<List<String>> l1) {
