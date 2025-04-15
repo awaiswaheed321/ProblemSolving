@@ -19,8 +19,35 @@ public class HackerRank {
 //        System.out.println(isAnagram2("aba", "aa"));
 //        System.out.println(isAnagram2("aba", "aab"));
 
-        System.out.println(wordPattern("abba", "dog cat cat dog"));
-        System.out.println(wordPattern("abba", "dog cat cat fish"));
+//        System.out.println(wordPattern("abba", "dog cat cat dog"));
+//        System.out.println(wordPattern("abba", "dog cat cat fish"));
+//        System.out.println(wordPattern("abba", "dog dog dog fish"));
+
+        System.out.println(longestCommonPrefix(new String[]{"dog","racecar","car"}));
+    }
+
+    public static String longestCommonPrefix(String[] strs) {
+        String res = "";
+        int min = Integer.MAX_VALUE;
+        for(String s: strs) {
+            min = Math.min(min, s.length());
+        }
+        for(int i = 0; i < min; i++) {
+            char c = strs[0].charAt(i);
+            boolean check = true;
+            for(int j=1 ; j<strs.length; j++) {
+                if(strs[j].charAt(i) != c) {
+                    check = false;
+                    break;
+                }
+            }
+            if(check) {
+                res += c;
+            } else {
+                break;
+            }
+        }
+        return res;
     }
 
     public static boolean wordPattern(String pattern, String s) {
@@ -30,6 +57,7 @@ public class HackerRank {
         for(int i=0; i< arr.length; i++) {
             char c = pattern.charAt(i);
             if(!map.containsKey(c)) {
+                if(map.containsValue(arr[i])) return false;
                 map.put(c, arr[i]);
             } else {
                 if(!Objects.equals(map.get(c), arr[i])) {
