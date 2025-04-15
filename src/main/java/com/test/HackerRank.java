@@ -7,14 +7,60 @@ import java.util.stream.Collectors;
 
 public class HackerRank {
     public static void main(String[] args) {
-        List<List<String>> listOfLists = new ArrayList<>();
+//        List<List<String>> listOfLists = new ArrayList<>();
+//
+//        listOfLists.add(Arrays.asList("apple", "banana", "cherry"));
+//        listOfLists.add(Arrays.asList("dog", "elephant"));
+//        listOfLists.add(Arrays.asList("fish", "goat", "Iguana", "alqw", "iltw"));
+//
+//        System.out.println(test1(listOfLists));
+//        System.out.println(test2(listOfLists));
+//        System.out.println(isSubsequence("axc", "ahgdc"));
+//        System.out.println(isAnagram2("aba", "aa"));
+//        System.out.println(isAnagram2("aba", "aab"));
+//
+//        System.out.println(wordPattern("abba", "dog cat cat dog"));
+//        System.out.println(wordPattern("abba", "dog cat cat fish"));
+    }
 
-        listOfLists.add(Arrays.asList("apple", "banana", "cherry"));
-        listOfLists.add(Arrays.asList("dog", "elephant"));
-        listOfLists.add(Arrays.asList("fish", "goat", "Iguana", "alqw", "iltw"));
+    public static boolean isAnagram2(String s, String t) {
+        int[] chars = new int[26];
+        for(char c: s.toCharArray()) {
+            chars[c - 'a']++;
+        }
+        for(char c: t.toCharArray()) {
+            chars[c-'a']--;
+        }
+        for(int n: chars) {
+            if(n != 0) return false;
+        }
+        return true;
+    }
 
-        System.out.println(test1(listOfLists));
-        System.out.println(test2(listOfLists));
+    public static boolean isAnagram(String s, String t) {
+        Map<Character, Integer> map = new HashMap<>();
+        for(char c: s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        for(char c: t.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) - 1);
+            if(map.get(c) == 0) {
+                map.remove(c);
+            }
+        }
+
+        return map.isEmpty();
+    }
+
+    public static boolean isSubsequence(String s, String t) {
+        String s1 = t;
+        for(char c: s.toCharArray()) {
+            int index = t.indexOf(c);
+            if(index == -1) return false;
+            s1 = s1.substring(index + 1);
+        }
+        return true;
     }
 
     public static List<String> test1(List<List<String>> l1) {
