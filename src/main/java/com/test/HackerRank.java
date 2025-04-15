@@ -18,9 +18,26 @@ public class HackerRank {
 //        System.out.println(isSubsequence("axc", "ahgdc"));
 //        System.out.println(isAnagram2("aba", "aa"));
 //        System.out.println(isAnagram2("aba", "aab"));
-//
-//        System.out.println(wordPattern("abba", "dog cat cat dog"));
-//        System.out.println(wordPattern("abba", "dog cat cat fish"));
+
+        System.out.println(wordPattern("abba", "dog cat cat dog"));
+        System.out.println(wordPattern("abba", "dog cat cat fish"));
+    }
+
+    public static boolean wordPattern(String pattern, String s) {
+        Map<Character, String> map = new HashMap<>();
+        String[] arr = s.strip().split("\\s+");
+        if(pattern.length() != arr.length) return false;
+        for(int i=0; i< arr.length; i++) {
+            char c = pattern.charAt(i);
+            if(!map.containsKey(c)) {
+                map.put(c, arr[i]);
+            } else {
+                if(!Objects.equals(map.get(c), arr[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static boolean isAnagram2(String s, String t) {
