@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.KeyStore;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class HackerRank {
     public static void main(String[] args) {
@@ -24,6 +25,10 @@ public class HackerRank {
 //        System.out.println(wordPattern("abba", "dog dog dog fish"));
 
         System.out.println(longestCommonPrefix(new String[]{"dog","racecar","car"}));
+    }
+
+    public int strStr(String haystack, String needle) {
+        return haystack.indexOf(needle);
     }
 
     public static String longestCommonPrefix(String[] strs) {
