@@ -27,6 +27,20 @@ public class HackerRank {
         System.out.println(longestCommonPrefix(new String[]{"dog","racecar","car"}));
     }
 
+    public int longestSubstring(String s) {
+        int i =0, j=0, max = 0;
+        Set<Character> set = new HashSet<>();
+        while(j < s.length()) {
+            if(set.contains(s.charAt(j))) {
+                set.remove(s.charAt(i++));
+            } else {
+                set.add(s.charAt(j++));
+                max = Math.max(max, set.size());
+            }
+        }
+        return max;
+    }
+
     public int strStr(String haystack, String needle) {
         return haystack.indexOf(needle);
     }
