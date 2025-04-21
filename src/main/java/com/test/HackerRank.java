@@ -27,6 +27,37 @@ public class HackerRank {
         System.out.println(longestCommonPrefix(new String[]{"dog","racecar","car"}));
     }
 
+    public int[] twoSum2_2(int[] numbers, int target) {
+        int left = 0, right = numbers.length - 1;
+        while(left < right) {
+            int total  = numbers[left] + numbers[right];
+            if(total == target) {
+                return new int[] {left + 1, right + 1};
+            } else if( total < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return new int[]{};
+    }
+
+    public int[] twoSum2(int[] numbers, int target) {
+        Map<Integer, Integer> map = new LinkedHashMap<>();
+        for(int i=0; i<numbers.length; i++) {
+            map.put(numbers[i], i);
+        }
+
+        for(int i=0; i<numbers.length; i++) {
+            int complement = target - numbers[i];
+            if(map.containsKey(complement)) {
+                return new int[]{i + 1, map.get(complement) + 1};
+            }
+        }
+
+        return new int[]{};
+    }
+
     public boolean containsNearbyDuplicate(int[] nums, int k) {
         Map<Integer, Integer> map = new HashMap<>();
         for(int i=0; i< nums.length; i++) {
