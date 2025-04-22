@@ -24,7 +24,26 @@ public class HackerRank {
 //        System.out.println(wordPattern("abba", "dog cat cat fish"));
 //        System.out.println(wordPattern("abba", "dog dog dog fish"));
 
-        System.out.println(longestCommonPrefix(new String[]{"dog","racecar","car"}));
+//        System.out.println(longestCommonPrefix(new String[]{"dog","racecar","car"}));
+
+        System.out.println(summaryRanges(new int[]{0,2,3,4,6,8,9}));
+    }
+
+    public static List<String> summaryRanges(int[] nums) {
+        List<String> res = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++) {
+            int start = nums[i];
+            int end = nums[i];
+            while(i < nums.length - 1 && nums[i+1] == end + 1) {
+                end = nums[++i];
+            }
+            if(start == end) {
+                res.add(String.valueOf(start));
+            } else {
+                res.add(start + "->" + end);
+            }
+        }
+        return res;
     }
 
     public boolean isValid(String s) {
