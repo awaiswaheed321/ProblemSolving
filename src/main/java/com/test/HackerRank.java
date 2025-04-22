@@ -27,6 +27,24 @@ public class HackerRank {
         System.out.println(longestCommonPrefix(new String[]{"dog","racecar","car"}));
     }
 
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        for(char c: s.toCharArray()) {
+            if(c == '(' || c == '{' || c == '[') {
+                stack.push(c);
+            } else {
+                if(stack.isEmpty()) return false;
+                Character c1 = stack.pop();
+                if((c1 == '(' && c == ')') || (c1 == '{' && c == '}') || (c1 == '[' && c == ']')) {
+                    continue;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
     public int maxArea(int[] height) {
         int left = 0, right = height.length - 1;
         int maxArea = 0;
