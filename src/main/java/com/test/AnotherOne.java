@@ -1,6 +1,7 @@
 package com.test;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 public class AnotherOne {
@@ -10,6 +11,24 @@ public class AnotherOne {
         System.out.println(simplifyPath("/../"));
         System.out.println(simplifyPath("/.../a/../b/c/../d/./"));
         System.out.println(simplifyPath("/home/"));
+    }
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode res = new ListNode(0);
+        ListNode curr = res;
+        while(list1 != null || list2 != null) {
+            int x = list1 == null ? Integer.MAX_VALUE : list1.val;
+            int y = list2 == null ? Integer.MAX_VALUE : list2.val;
+            curr.next = new ListNode(Math.min(x, y));
+            curr = curr.next;
+            if(x < y) {
+                list1 = list1.next;
+            } else {
+                if(list2 != null )
+                    list2 = list2.next;
+            }
+        }
+        return res.next;
     }
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
